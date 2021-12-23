@@ -3,7 +3,7 @@ import { Form, Button, Card } from 'react-bootstrap';
 import useInput from '../hooks/useInput';
 
 const NewURLForm = (props) => {
-	const { urls, setUrls } = props;
+	const { urls, appendNewUrl } = props;
 	const [url, setUrl] = useInput('');
 	const [slug, setSlug] = useInput('');
 
@@ -11,14 +11,12 @@ const NewURLForm = (props) => {
 		e.preventDefault();
 		const isUrlExisting = urls.filter((data) => data.id === slug).length;
 		if (!isUrlExisting) {
-			setUrls((prevUrls) => [...prevUrls, { id: slug, url: url }]);
-			console.log('ADDED');
-			console.log(urls);
+			appendNewUrl({ url, slug });
 		}
 	};
 
 	return (
-		<Card className="m-4 p-4">
+		<Card className="p-4">
 			<Form onSubmit={onSubmit}>
 				<h1 className="text-center fw-bold">SHORTEN</h1>
 				<Form.Group className="mb-3" controlId="formBasicEmail">
