@@ -19,6 +19,7 @@ const NewURLForm = (props) => {
 		<Card className="p-4">
 			<Form onSubmit={onSubmit}>
 				<h1 className="text-center fw-bold">SHORTEN</h1>
+
 				<Form.Group className="mb-3" controlId="formBasicEmail">
 					<Form.Label className="fw-bold">URL</Form.Label>
 					<Form.Control type="text" placeholder="Enter URL" onChange={setUrl} />
