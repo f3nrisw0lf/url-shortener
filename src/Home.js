@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { UrlsContext } from './contexts/UrlsContext';
 import NewURLForm from './components/NewURLForm';
 
-const Home = () => {
+const Home = (props) => {
 	const { urls, appendNewUrl } = useContext(UrlsContext);
 	const [filter, setFilter] = useState('');
+	const [location, setLocation] = useState(window.location);
 
 	const filterOnChange = (e) => {
 		setFilter(e.target.value);
@@ -14,7 +15,7 @@ const Home = () => {
 
 	return (
 		<div className="m-4 p-4">
-			<NewURLForm urls={urls} appendNewUrl={appendNewUrl} />
+			<NewURLForm urls={urls} location={location} appendNewUrl={appendNewUrl} />
 
 			<h1 className="mt-4 mb-2 fw-bold">Public Urls</h1>
 			<Form.Control
@@ -25,19 +26,30 @@ const Home = () => {
 			/>
 			{urls &&
 				urls
+					// Search urls and slug that contains the filter value
 					.filter((data) => {
-						if (
-							data.id.toLowerCase().includes(filter.toLowerCase()) ||
-							data.url.toLowerCase().includes(filter.toLowerCase()) ||
-							filter == ''
-						) {
+						const isFilterInUrl = data.url
+							.toLowerCase()
+							.includes(filter.toLowerCase());
+
+						const isFilterInId = data.id
+							.toLowerCase()
+							.includes(filter.toLowerCase());
+
+						const isFilterEmpty = filter == '';
+
+						if (isFilterInId || isFilterInUrl || isFilterEmpty) {
 							return data;
 						}
 					})
+
+					// Based on the Filtered Data, Display the Values in the URL
 					.map((url) => {
 						return (
 							<ListGroupItem key={url.id} className="p-3">
-								<Link to={`/api/${url.id}`}>{url.id}</Link>
+								<Link to={`/api/${url.id}`}>
+									{location.host}/api/{url.id}
+								</Link>
 								<h2>{url.url}</h2>
 							</ListGroupItem>
 						);

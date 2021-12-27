@@ -1,18 +1,31 @@
-import React from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { useState, React } from 'react';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import useInput from '../hooks/useInput';
 
 const NewURLForm = (props) => {
-	const { urls, appendNewUrl } = props;
+	const { urls, location, appendNewUrl } = props;
 	const [url, setUrl] = useInput('');
 	const [slug, setSlug] = useInput('');
+	const [isSlugExisting, setSlugExisting] = useState(false);
+	const [existingUrl, setExistingUrl] = useState('');
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		const isUrlExisting = urls.filter((data) => data.id === slug).length;
-		if (!isUrlExisting) {
-			appendNewUrl({ url, slug });
+		const isSlugExisting = urls.filter((data) => data.id === slug).length;
+		const findUrl = urls.filter((data) => data.url === url);
+
+		if (!isSlugExisting && !findUrl.length) {
+			setSlugExisting(false);
+			return appendNewUrl({ url, slug });
 		}
+
+		if (findUrl.length) {
+			console.log(findUrl);
+			return setExistingUrl(findUrl[0]);
+		}
+
+		return setSlugExisting(true);
 	};
 
 	return (
@@ -30,6 +43,17 @@ const NewURLForm = (props) => {
 					<Form.Control type="text" placeholder="Slug" onChange={setSlug} />
 				</Form.Group>
 
+				{isSlugExisting && <Alert className="mb-3">SLUG EXISTING!</Alert>}
+				{existingUrl && (
+					<Alert className="mb-3">
+						<h5>URL ALREADY EXISTING</h5>
+						<Link to={`/api/${existingUrl.id}`}>
+							{location.host}/api/{existingUrl.id}
+						</Link>{' '}
+						<br></br>
+						{existingUrl.url}
+					</Alert>
+				)}
 				<Button variant="primary" className="" type="submit">
 					Submit
 				</Button>
