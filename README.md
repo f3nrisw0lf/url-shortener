@@ -2,15 +2,16 @@
 
 A simple web-based application that shortens and optimizes the Uniform Resource Locator's length for easier recall and tracing.
 
+![Home Page](public/home.png)
 
 # Table of Contents
 
-* [Dependencies](#Dependencies)
-* [Setup](#Setup)
-* [Usage](#Usage)
-* [Folder and File Structure](#Folder-and-file-Structure)
-* [About the Developer](#About-the-Developer)
-
+- [SHORTEN](#shorten)
+- [Table of Contents](#table-of-contents)
+- [Dependencies](#dependencies)
+- [Setup](#setup)
+- [Folder and File Structure](#folder-and-file-structure)
+- [About the Developer](#about-the-developer)
 
 # Dependencies
 
@@ -21,7 +22,6 @@ A simple web-based application that shortens and optimizes the Uniform Resource 
 - eslint-plugin-jsx-a11y - 6.5.1
 - eslint-plugin-react - 7.28.0
 - eslint-plugin-react-hooks - 4.3.0
-
 
 # Setup
 
@@ -43,16 +43,13 @@ A simple web-based application that shortens and optimizes the Uniform Resource 
     $ npm start
    ```
 
-
 # Folder and File Structure
+
 - package.json - dependencies
 - public - html and favicon
 - src - code
-
 
 # About the Developer
 
 - Francis Rodrick M. Corpuz, https://github.com/f3nrisw0lf
 - Neo Anthony G. Lapitan, https://github.com/seanteaman
-
-
